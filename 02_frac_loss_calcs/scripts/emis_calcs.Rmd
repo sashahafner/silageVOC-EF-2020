@@ -1,0 +1,174 @@
+---
+title: 'Calculation of fractional VOC losses from silage using 2012 model'
+output: pdf_document
+author: Sasha D. Hafner
+date: 2021 August
+---
+
+# Overview
+This document presents calculation of fraction VOC losses from silage fed to cattle based on the model described in Hafner et al. (2012). 
+All calculations were carried out in R.
+
+# Initial steps
+Load model from Hafner et al. (2012).
+```{r}
+source('../model/FAConvDiffMod_v8.R')
+```
+
+Set constants.
+Diffusivity in clear air (m2/s) (`d.a`) and Henry's law constant (aq:g, g / m3 in aq phase per g / m3 gas phase).
+Henry's law constant parameters from NIST Chemistry Webbook (Sander, 2011). 
+```{r}
+d.a <- c(AceticAcid = 1.2E-5, Acetaldehyde = 1.3E-5, PropylAcetate = 1.3E-5, Ethanol = 1.2E-5) 
+
+k.h.p <- matrix(c(-12.6,  6300,
+                  -17.31, 5920,
+                  -17.6,  5700,
+                  -15.78, 6248),
+              ncol = 2, byrow = TRUE, 
+              dimnames = list(c('AceticAcid', 'Acetaldehyde', 'PropylAcetate', 'Ethanol'), 
+                              c('int', 'itemp')))
+k.h.p
+```
+
+# 1. Feedout loss
+Assumptions:
+
+* 15 cm removed every 12 hours
+* Loss only from outer 15 cm
+* Density was 232 kg/m3, based on Muck and Holmes (2000) Table 1 average (WI bunker silos)
+* Dry matter 34%, from same source
+* Gas-phase diffusion-dispersion coefficient `ksg` is 2E-5 m2/s from Hafner et al. (2012, Fig. 1)
+* Temperature was 20 degrees C, close to the 1971-2000 climatological normal average presented in Table 1 in Montes et al. 2010 (packed silage)
+* Wind speed is lower than the climatological normal average of about 4 m/s, due to obstructions and resistance close to the ground, giving a surface mass transfer coefficient value of 0.01 m/s
+
+Set silage properties and management.
+These follow assumptions listed above.
+```{r}
+dm <- 0.34
+rho.d <- 232
+thk <- 0.15
+t.outs <- 12 * 3600
+```
+
+Transport properties.
+```{r}
+k.sg <- 2E-5
+h.m <- 0.01
+```
+
+Weather
+
+```{r}
+temp.c <- 20
+temp.k <- temp.c + 273.15
+```
+
+```{r}
+k.h <- exp(k.h.p[, 'int'] + k.h.p[, 'itemp']/temp.k)
+k.h
+```
+
+
+## Acetic acid loss
+```{r}
+cmpd <- 'AceticAcid'
+out <- facd.mod(c.d = 1, d.a = d.a[cmpd], dm = dm, e.d=100, h.m = h.m, k.h = k.h[cmpd],
+                l = thk, k.sg = k.sg, temp.c = temp.c, t.outs = t.outs, rho.d = rho.d)
+out$ts
+```
+
+Predicted loss: `r round(100 * out$ts$f.lost, 1)`%.
+
+## Ethanol loss
+```{r}
+cmpd <- 'Ethanol'
+out <- facd.mod(c.d = 1, d.a = d.a[cmpd], dm = dm, e.d=100, h.m = h.m, k.h = k.h[cmpd],
+                l = thk, k.sg = k.sg, temp.c = temp.c, t.outs = t.outs, rho.d = rho.d)
+out$ts
+```
+
+Predicted loss: `r round(100 * out$ts$f.lost, 1)`%.
+
+## Propyl acetate
+```{r}
+cmpd <- 'PropylAcetate'
+out <- facd.mod(c.d = 1, d.a = d.a[cmpd], dm = dm, e.d=100, h.m = h.m, k.h = k.h[cmpd],
+                l = thk, k.sg = k.sg, temp.c = temp.c, t.outs = t.outs, rho.d = rho.d)
+out$ts
+```
+
+Predicted loss: `r round(100 * out$ts$f.lost, 1)`%.
+
+## Acetaldehyde
+```{r}
+cmpd <- 'Acetaldehyde'
+out <- facd.mod(c.d = 1, d.a = d.a[cmpd], dm = dm, e.d=100, h.m = h.m, k.h = k.h[cmpd],
+                l = thk, k.sg = k.sg, temp.c = temp.c, t.outs = t.outs, rho.d = rho.d)
+out$ts
+```
+Predicted loss: `r round(100 * out$ts$f.lost, 1)`%.
+
+# 2. Feeding loss
+Assumptions:
+
+* Average of 20 cm silage in feed lanes for 6 hours
+* Density is 75 kg/m3, based roughly on Hafner et al. (2012)
+* Dry matter 34%, from Muck and Holmes 2000 Table 1
+* Gas-phase diffusion-dispersion coefficient `ksg` is 3.3E-5 m2/s from Hafner et al. (2012, median best-fit value listed on p 139, right side)
+* Temperature same as with feedout above
+* Surface mass transfer coefficient value of 0.01 m/s from Hafner et al. (2012)
+
+Silage properties and management, based on above assumptions.
+```{r}
+dm <- 0.34
+rho.d <- 75
+thk <- 0.15
+t.outs <- 6 * 3600
+```
+
+Transport properties
+```{r}
+k.sg <- 3.3E-5
+h.m <- 0.01
+```
+
+## Acetic acid loss
+```{r}
+cmpd <- 'AceticAcid'
+out <- facd.mod(c.d = 1, d.a = d.a[cmpd], dm = dm, e.d=100, h.m = h.m, k.h = k.h[cmpd],
+                l = thk, k.sg = k.sg, temp.c = temp.c, t.outs = t.outs, rho.d = rho.d)
+out$ts
+```
+
+Predicted loss: `r round(100 * out$ts$f.lost, 1)`%.
+
+
+## Ethanol loss
+```{r}
+cmpd <- 'Ethanol'
+out <- facd.mod(c.d = 1, d.a = d.a[cmpd], dm = dm, e.d=100, h.m = h.m, k.h = k.h[cmpd],
+                l = thk, k.sg = k.sg, temp.c = temp.c, t.outs = t.outs, rho.d = rho.d)
+out$ts
+```
+
+Predicted loss: `r round(100 * out$ts$f.lost, 1)`%.
+
+## Propyl acetate
+```{r}
+cmpd <- 'PropylAcetate'
+out <- facd.mod(c.d = 1, d.a = d.a[cmpd], dm = dm, e.d=100, h.m = h.m, k.h = k.h[cmpd],
+                l = thk, k.sg = k.sg, temp.c = temp.c, t.outs = t.outs, rho.d = rho.d)
+out$ts
+```
+
+Predicted loss: `r round(100 * out$ts$f.lost, 1)`%.
+
+## Acetaldehyde
+```{r}
+cmpd <- 'Acetaldehyde'
+out <- facd.mod(c.d = 1, d.a = d.a[cmpd], dm = dm, e.d=100, h.m = h.m, k.h = k.h[cmpd],
+                l = thk, k.sg = k.sg, temp.c = temp.c, t.outs = t.outs, rho.d = rho.d)
+out$ts
+```
+Predicted loss: `r round(100 * out$ts$f.lost, 1)`%.
