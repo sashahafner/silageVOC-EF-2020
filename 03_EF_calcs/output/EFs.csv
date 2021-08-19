@@ -1,7 +1,7 @@
 "animal.type","stage","emis.sil","sil.consump","EF.animal"
-"Beef","store",3183,338.4,1.077
-"Beef","mix",195.9,338.4,0.06629
-"Beef","feed",2620,338.4,0.8868
-"Dairy","store",3183,3503,11.15
-"Dairy","mix",195.9,3503,0.6861
-"Dairy","feed",2620,3503,9.179
+"Beef","store",2466,338,0.8334
+"Beef","mix",233.2,338,0.07883
+"Beef","feed",2252,338,0.7613
+"Dairy","store",2466,3503,8.637
+"Dairy","mix",233.2,3503,0.817
+"Dairy","feed",2252,3503,7.89

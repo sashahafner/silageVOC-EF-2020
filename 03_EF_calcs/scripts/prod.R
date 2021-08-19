@@ -4,7 +4,7 @@
 concsw <- dcast(subset(concs, crop %in% c('corn', 'grass', 'legume')), 
                 group + compound + cas ~ crop, value.var = 'conc.mean')
 
-# Set missing values to corn or grass value
+# Set missing values to corn (1st choice) or grass (2nd choice) value
 crops <- c('corn', 'grass', 'legume')
 for (i in c('corn', 'grass')) {
   for (j in crops[!crops %in% i]) {
@@ -12,7 +12,7 @@ for (i in c('corn', 'grass')) {
   }
 }
 
-# Compound concentrations weighted by silage production
+# Compound concentrations weighted by silage production from NASS
 concsw$wmean <- 0.75 * concsw$corn + 0.15 * concsw$grass + 0.10 * concsw$legume
 # Sort
 concsw <- concsw[order(concsw$group, -concsw$wmean), ]

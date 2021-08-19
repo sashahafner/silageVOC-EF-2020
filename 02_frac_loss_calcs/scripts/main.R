@@ -1,4 +1,5 @@
 # Runs code and creates report
 
-library(rmarkdown)
+source('packages.R')
 render('emis_calcs.Rmd', output_dir = '../output')
+source('export.R')
