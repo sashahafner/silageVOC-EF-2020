@@ -56,7 +56,7 @@ Calculations are carried out for four groups of compounds: acids, alcohols, este
 The only excluded group is ketones, which were measured in only two studies and appear to make a minor contribution to silage VOC emission.
 For each group, a "representive" compound is used.
 These compounds were selected because they tend to dominate production and emission of their group, but volatility is generally similar to other compounds in the group as well.
-Temperature was set to 13.6 degrees C, which is the median of the NOAA climatological normals from 1971-2000 as presented in Montes et al. (2010).
+Temperature was set to the average for the contiguous US for 1991-2020, which is 11.8 degrees C.
 Additional important assumptions are specified in an R Markdown file `emis_calcs.Rmd` in the `scripts` directory, which is compiled into a pdf with model results in `output` by running `main.R`.
 Calculated fractional losses (g VOC volatilized per g VOC produced or available) are given in `output/frac_loss.csv`.
 

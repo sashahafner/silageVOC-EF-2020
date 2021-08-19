@@ -39,7 +39,7 @@ Assumptions:
 * Density was 232 kg/m3, based on Muck and Holmes (2000) Table 1 average (WI bunker silos)
 * Dry matter 34%, from same source
 * Gas-phase diffusion-dispersion coefficient `ksg` is 2E-5 m2/s from Hafner et al. (2012, Fig. 1)
-* Temperature was 13.6 degrees C, which is the median from the 1971-2000 climatological normal data presented in Table 1 in Montes et al. 2010 (packed silage)
+* Temperature is set to the average of monthly averages for the contiguous US from 1991 through 2020
 * Wind speed is lower than the climatological normal average of about 4 m/s, due to obstructions and resistance close to the ground, giving a surface mass transfer coefficient value of 0.01 m/s
 
 Set silage properties and management.
@@ -60,7 +60,7 @@ h.m <- 0.01
 Weather
 
 ```{r}
-temp.c <- 13.6
+temp.c
 temp.k <- temp.c + 273.15
 ```
 
