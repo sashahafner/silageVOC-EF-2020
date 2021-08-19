@@ -47,7 +47,7 @@ However, this paper presented results from corn silage only, while here a smalle
 Here weighted mean concentrations are calculated by crop type, following the approach described in Hafner et al. (2013, Section 2).
 Calculations can be carried out by running `scripts/main.R`.
 Output is in `output`.
-The file `compound_concs.csv` has weighted mean (by number of silages in each study) concentration in mg VOC per kg silage DM.
+The file `compound_concs.csv` has weighted mean (by number of silages in each study) concentration in the column `conc.mean` in mg VOC per kg silage DM.
 
 ## 4.2. `02_frac_loss`
 Here the mass transfer model from Hafner et al. (2012) is used to predict fractional loss of VOC (g VOC lost per g VOC produced or available) from silage storage and feeding.
@@ -58,12 +58,12 @@ For each group, a "representive" compound is used.
 These compounds were selected because they tend to dominate production and emission of their group, but volatility is generally similar to other compounds in the group as well.
 Temperature was set to 13.6 degrees C, which is the median of the NOAA climatological normals from 1971-2000 as presented in Montes et al. (2010).
 Additional important assumptions are specified in an R Markdown file `emis_calcs.Rmd` in the `scripts` directory, which is compiled into a pdf with model results in `output` by running `main.R`.
-Calculated fractional losses are given in `output/frac_loss.csv`.
+Calculated fractional losses (g VOC volatilized per g VOC produced or available) are given in `output/frac_loss.csv`.
 
 ## 4.3. `03_EF_calcs`
 EFs are calculated here based on the fractional VOC losses calculated as described in Section 4.2 (by group) and silage consumption rates specified in `scripts/set_consump.R`, and the production (concentration) data from `01_production` as described in Section 4.1.
 
-Resulting EFs and related results are given in `output/EFs.csv`, including:
+Resulting EFs and related results are given in the file `output/EFs.csv`, including:
 * `emis.sil`: total VOC emission on a silage mass basis (mg VOC per kg silage DM = Gg VOC per Tg silage DM)
 * `EF.animal`: the EF on an animal basis (kg VOC per animal per year)
 
@@ -71,7 +71,9 @@ More detailed emission estimates for individual compounds on a silage mass basis
 * `conc.wm`: production-weighted mean VOC concentration in silage (combined for corn, grass, and legume silage)
 * `floss.total`: fractional VOC loss for all stages
 * `emis.total`: absolute VOC loss for all stages (mg VOC per kg silage DM)
-* `spec.pt`: speciation estimates as a percentage of total VOC emission (%)
+* `spec.pt`: speciation estimates as a percentage of total VOC emission (% VOC mass)
+
+Production-based weighting was based on NASS results which show that corn silage makes up about 75% of the total, grass 15%, and legume silage 10%.
 
 # 5. Silage consumption rates
 In these calculations, dairy and beef cattle differ only in the rates of silage consumption (feeding).
@@ -79,10 +81,10 @@ These values were estimated from NASS statistics for total silage production and
 Total national silage production was for corn, haylage, alfalfa, and sorghum silage production, which is reported in tons, and was assumed to be in fresh mass units at 35% dry matter (DM).
 ** Total silage production is 42 Tg DM per year. **
 Cattle populations are available as the number of dairy or beef cows, excluding bulls, steers, heifers, and calves. 
-Although these other animal groups consume silage, cow numbers are used for calculation of emissions in the NEI, and so these EFs should be based on them.
+Although these other animal groups consume silage, cow numbers are used for calculation of emissions in the NEI, and so these EFs should be based on them in order to predict total emissions.
 (**NTS: Abt/EPA needs to confirm this!**)
-Furthermore, we assumed that dairy cattle consume 75% of US silage and beef 25% (C. Al Rotz, USDA-ARS, personal communication).
-(**NTS: Link this to Al's 2 papers!**)
+To estimate silage feeding rates, we assumed all silage produced in the US is fed to dairy and beef cattle.
+Based on the Integrated Farm System Model (IFSM) simulation results described in recent national assessments of dairy and beef cattle (Rotz et al., 2019, 2021), we assumed that dairy cattle consume 75% of US silage and beef 25% (C. Al Rotz, USDA-ARS, personal communication).
 Based on this approach, silage feeding rates were about 10 kg DM per d for dairy cows and 0.9 kg DM per d for beef cows.
 
 # References
@@ -93,3 +95,7 @@ Hafner, S.D., Howard, C., Muck, R.E., Franco, R.B., Montes, F., Green, P.G., Mit
 Hafner, S.D., Montes, F., Rotz, C.A., Mitloehner, F.M., 2010. Ethanol emission from loose corn silage and exposed silage particles. Atmospheric Environment 44, 4172–4180. https://doi.org/10.1016/j.atmosenv.2010.07.029
 
 Montes, F., Hafner, S.D., Rotz, C.A., Mitloehner, F.M., 2010. Temperature and air velocity effects on ethanol emission from corn silage with the characteristics of an exposed silo face. Atmospheric Environment 44, 1987–1995. https://doi.org/10.1016/j.atmosenv.2010.02.037
+
+Rotz, A., Stout, R., Leytem, A., Feyereisen, G., Waldrip, H., Thoma, G., Holly, M., Bjorneberg, D., Baker, J., Vadas, P., Kleinman, P., 2021. Environmental assessment of United States dairy farms. Journal of Cleaner Production 315, 128153. https://doi.org/10.1016/j.jclepro.2021.128153
+
+Rotz, C.A., Asem-Hiablie, S., Place, S., Thoma, G., 2019. Environmental footprints of beef cattle production in the United States. Agricultural Systems 169, 1–13. https://doi.org/10.1016/j.agsy.2018.11.005
