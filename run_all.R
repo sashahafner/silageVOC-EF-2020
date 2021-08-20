@@ -2,16 +2,13 @@
 
 rm(list = ls())
 
-setwd('01_ave_temp/scripts')
-source('main.R')
-
-setwd('../../02_production/scripts')
+setwd('02_production/scripts')
 source('main.R')
 
 setwd('../../03_inputs/scripts')
 source('main.R')
 
-setwd('../../04_frac_loss_calcs/scripts')
+setwd('../../04_frac_loss/scripts')
 source('main.R')
 
 setwd('../../05_EF_calcs/scripts')

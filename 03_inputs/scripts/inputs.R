@@ -9,7 +9,7 @@ n.dairy <- 9.207E6
 n.beef <- 31.767E6
 
 # Fraction of silage consumed by dairy
-# Source: Al Rotz, personal communication
+# Source: Al Rotz, personal communication, based on simulations described in Rotz et al. (2019, 2021)
 f.sil.dairy <- 0.75
 f.sil.beef <- 0.25
 
@@ -49,31 +49,31 @@ rho.d.feed <- 75
 
 # Removal thickness stored silage
 # Units: m
-# Source: ????
+# Source: General recommendation from Himba 2011 and Saxe 2007 (12 inches per day) divided by 2 for 2 x daily removal
 thk.store <- 0.15
 
-# Time between stored silage removal
+# Time between stored silage removal events
 # Units: sec
-# Source: ????
+# Source: Guess, assuming 2 removals per day
 t.out.store <- 12 * 3600
 
 # Effective feed thickness
 # Units: m
-# Source: ????
+# Source: Guess
 thk.feed <- 0.15
 
 # Effective feed exposure duration
 # Units: sec
-# Source: ????
+# Source: Guess, assuming feeding twice per day
 t.out.feed <- 8 * 3600
 
 # Mass transfer model convection coefficient for feedout (storage)
-# m/s
+# Units: m/s
 # Source: Hafner et al. 2012, Fig. 1 (around 2 m/s wind)
 h.m.store <- 0.02
 
 # Mass transfer model convection coefficient for feeding (feed lanes)
-# m/s
+# Units: m/s
 # Source: Hafner et al. 2012, Fig. 1 (around 1 m/s wind) and p 139
 h.m.feed <- 0.01
 
@@ -92,26 +92,25 @@ k.sg.feed <- 6E-5
 # Source: EPA 2012
 d.a <- c(`Acetic acid` = 1.2E-5, Acetaldehyde = 1.3E-5, `Propyl acetate` = 8.0-6, Ethanol = 1.4E-5) 
 
-# Mass transfer model Henry's law constant parameters
-# Units: mol/kg-atm
-# Source: NIST
-k.h.p <- matrix(c(-12.6,  6300,
-                  -17.31, 5920,
-                  -17.6,  5700,
-                  -15.78, 6248),
+# Mass transfer model Henry's law constant parameters for log10(kh) = a + b/T where T is in K
+# Units on kh: mol/kg-atm
+# Source: Hafner et al. 2012, Table 1 or Sander 2017 (acetic acid and propyl acetate)
+# Note increase by factor of 2 for acetic acid based on pKa = 4.8 and pH 4.0 - 5.0
+k.h.p <- matrix(c(-5.44 + 0.30, 2736,
+                  -7.52,        2573,
+                  -7.64,        2475,
+                  -6.85,        2713),
               ncol = 2, byrow = TRUE, 
               dimnames = list(c('Acetic acid', 'Acetaldehyde', 'Propyl acetate', 'Ethanol'), 
-                              c('int', 'itemp')))
+                              c('a', 'b')))
 
 # Relative loss of VOC from mixing stage
 # Units: Fraction of mixing loss
-# Source: Hafner et al. 2010
+# Source: Approximation based on Hafner et al. 2010, poorly understood
 f.mix.loss <- 0.1
-
 
 # Silage and air temperature for mass transfer model
 # Units: degrees C
 # Source: Calculated from 1991-2020 contiguous US monthly averages from NOAA
 temp.c <- 11.8
 temp.k <- temp.c + 273.15
-

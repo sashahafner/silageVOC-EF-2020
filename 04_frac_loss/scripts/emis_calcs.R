@@ -1,7 +1,7 @@
 # Run mass transfer model
 
 # Calculate k.h values
-k.h <- exp(k.h.p[, 'int'] + k.h.p[, 'itemp']/temp.k)
+k.h <- 10^(k.h.p[, 'a'] + k.h.p[, 'b']/temp.k)
 
 # Create empty data frame for holding output
 floss <- data.frame(rep = c('Acetic acid', 'Acetaldehyde', 'Propyl acetate', 'Ethanol'), 

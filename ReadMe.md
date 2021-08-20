@@ -43,13 +43,9 @@ Literature data on VOC production in silage are stored in a Microsoft Excel file
 # 4. Files and calculation details
 Files are organized into 3 subdirectories.
 
-## 4.1. `00_functions`
+## 4.1. `01_functions`
 This subdirectory contains scripts that define functions used in the calculations.
 The file `FACOnvDiffMod_v8.R` defines the model from Hafner et al. (2012).
-
-## 4.2. `01_ave_temp`
-Data from the National Oceanic and Atmospheric Administration (NOAA) on average temperature in the contiguous US.
-Scripts in the `scripts` subdirectory calculate an overall average for 1991-2000.
 
 ## 4.3. `02_production`
 These files are for determination of VOC production in silage, based on silage VOC concentrations reported in published papers. 
@@ -102,7 +98,7 @@ Total national silage production was for corn, haylage, alfalfa, and sorghum sil
 ** Total silage production is 42 Tg DM per year. **
 Cattle populations are available as the number of dairy or beef cows, excluding bulls, steers, heifers, and calves. 
 Although these other animal groups consume silage, cow numbers are used for calculation of emissions in the NEI, and so these EFs should be based on them in order to predict total emissions.
-(**NTS: Abt/EPA needs to confirm this. Also fix wording.**)
+(**NTS: Confirm this with Abt/EPA. Also improve wording.**)
 To estimate silage feeding rates, we assumed all silage produced in the US is fed to dairy and beef cattle.
 Based on the Integrated Farm System Model (IFSM) simulation results described in recent national assessments of dairy and beef cattle (Rotz et al., 2019, 2021), we assumed that dairy cattle consume 75% of US silage and beef 25% (C. Al Rotz, USDA-ARS, personal communication).
 Based on this approach, silage feeding rates were about 10 kg DM per d for dairy cows and 0.9 kg DM per d for beef cows.
@@ -114,8 +110,22 @@ Hafner, S.D., Howard, C., Muck, R.E., Franco, R.B., Montes, F., Green, P.G., Mit
 
 Hafner, S.D., Montes, F., Rotz, C.A., Mitloehner, F.M., 2010. Ethanol emission from loose corn silage and exposed silage particles. Atmospheric Environment 44, 4172–4180. https://doi.org/10.1016/j.atmosenv.2010.07.029
 
+Hibma, J., 2011. Saving face: Silage pile management [WWW Document]. Progressive Dairy. URL https://www.progressivedairy.com/topics/feed-nutrition/saving-face-silage-pile-management (accessed 8.20.21).
+
 Montes, F., Hafner, S.D., Rotz, C.A., Mitloehner, F.M., 2010. Temperature and air velocity effects on ethanol emission from corn silage with the characteristics of an exposed silo face. Atmospheric Environment 44, 1987–1995. https://doi.org/10.1016/j.atmosenv.2010.02.037
+
+Muck, R.E., Holmes, B.J., 2000. Factors Affecting Bunker Silo Densities. Applied Engineering in Agriculture 16, 613–620.
+
+NASS. 2021. Pre-Defined Queries. URL: `https://www.nass.usda.gov/Data_and_Statistics/Pre-Defined_Queries/index.php` Entries used: "Beef Cow Inventory - All States", "Milk Cow Inventory - All States". (accessed 19 August 2021).
+
+NASS. 2021. Quick Stats. URL: `https://quickstats.nass.usda.gov/`. Selections: "SURVEY, CROPS, FIELD CROPS, CORN, PRODUCTION, CORN, SILAGE - PRODUCTION, MEASURED IN TONS","SURVEY, CROPS, FIELD CROPS, HAYLAGE, PRODUCTION, HAYLAGE, (EXCL ALFALFA)", "SURVEY, CROPS, FIELD CROPS, HAYLAGE, PRODUCTION, HAYLAGE, ALFALFA - PRODUCTION, MEASURED IN TONS", "SURVEY, CROPS, FIELD CROPS, SORGHUM, PRODUCTION, SORGHUM, SILAGE - PRODUCTION, MEASURED IN TONS". (accessed 19 August 2021).
+
+NOAA. 2021. Climate at a Glance. URL https://www.ncdc.noaa.gov/cag/national/mapping (page) https://www.ncdc.noaa.gov/cag/national/mapping/110-tavg.csv (data file) (accessed 18 August 2021)
 
 Rotz, A., Stout, R., Leytem, A., Feyereisen, G., Waldrip, H., Thoma, G., Holly, M., Bjorneberg, D., Baker, J., Vadas, P., Kleinman, P., 2021. Environmental assessment of United States dairy farms. Journal of Cleaner Production 315, 128153. https://doi.org/10.1016/j.jclepro.2021.128153
 
 Rotz, C.A., Asem-Hiablie, S., Place, S., Thoma, G., 2019. Environmental footprints of beef cattle production in the United States. Agricultural Systems 169, 1–13. https://doi.org/10.1016/j.agsy.2018.11.005
+
+Sander, R., 2017. Henry’s Law Constants, in: Linstrom, P.G., Mallard, W.G. (Eds.), NIST Chemistry WebBook, NIST Standard Reference Database Number 69. National Institute of Standards and Technology, Gaithersburg, MD. URL https://webbook.nist.gov/cgi/cbook.cgi?ID=C64197&Units=SI&Mask=10#Solubility (acetic acid) https://webbook.nist.gov/cgi/cbook.cgi?ID=C109604&Units=SI&Mask=10#Solubility (propyl acetate) 
+
+Saxe, C., 2007. Managing Forage in Bunker Silos. Focus on Forage 3(6). URL https://fyi.extension.wisc.edu/forage/managing-forage-in-bunker-silos/ (accessed 20 August 2021)

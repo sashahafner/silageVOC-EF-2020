@@ -1,2 +1,0 @@
-Data in file 110-tavg.csv are average temperature in contiguous US by month.
-File was downloaded from https://www.ncdc.noaa.gov/cag/national/mapping 19 August 2021 from "Download All Months/Years" link under map (https://www.ncdc.noaa.gov/cag/national/mapping/110-tavg.csv).
