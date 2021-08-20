@@ -43,18 +43,32 @@ Literature data on VOC production in silage are stored in a Microsoft Excel file
 # 4. Files and calculation details
 Files are organized into 3 subdirectories.
 
-## 4.1. `01_production`
+## 4.1. `00_functions`
+This subdirectory contains scripts that define functions used in the calculations.
+The file `FACOnvDiffMod_v8.R` defines the model from Hafner et al. (2012).
+
+## 4.2. `01_ave_temp`
+Data from the National Oceanic and Atmospheric Administration (NOAA) on average temperature in the contiguous US.
+Scripts in the `scripts` subdirectory calculate an overall average for 1991-2000.
+
+## 4.3. `02_production`
 These files are for determination of VOC production in silage, based on silage VOC concentrations reported in published papers. 
 The data used here are based on Hafner et al. (2013), supplemented with measurements from haylage (grass silage) and legume silage.
 These literature data can be found in `data/Silage_VOC.xlsx`.
-Weighted mean concentrations are calculated by crop type, following the approach described in Hafner et al. (2013, Section 2).
+Weighted mean concentrations (by numer of silages in each study) are calculated by crop type, following the approach described in Hafner et al. (2013, Section 2).
 These calculations are carried out by running `scripts/main.R`.
 The output of the calculations is stored in the `output` directory.
 The file `compound_concs.csv` has the weighted mean (by number of silages in each study) concentration in the column `conc.mean` in mg VOC per kg silage DM.
 
-## 4.2. `02_frac_loss`
+## 4.4. `03_inputs`
+Inputs for calculations are set in `scripts/inputs.R`.
+These include silage production, cattle populations, silage properties, temperature, and mass transfer model parameters. 
+Some of these values are calculated in the script, and the file `log/log.txt` provides a record of all values.
+
+## 4.5. `04_frac_loss_calcs`
 Here the mass transfer model from Hafner et al. (2012) is used to predict fractional loss of VOC (kg VOC lost per kg VOC produced or available) from silage storage and feeding.
 This model includes parameters for transport through silage and loss from an exposed surface, with parameter values based on wind tunnel (Montes et al., 2010; Hafner et al., 2010) and mass balance emission measurements made using silage representative of storage or feeding conditions (Hafner et al., 2012).
+Model parameters are set in `03_inputs`.
 Calculations are carried out for four chemical groups of compounds: acids, alcohols, esters, and aldehydes, which cover nearly all groups of VOC found in silage, according to the 2013 review (Hafner et al., 2013).
 Ketones is the only other chemical group that contributes significantly to VOC emissions from silage. 
 Ketones are excluded from the calculations here because their contribution to the overall silage VOC emission is not significant, an estimation made based on only two studies with silage ketones data (Hafner et al., 2013).
@@ -62,23 +76,24 @@ Ketones are excluded from the calculations here because their contribution to th
 In each chemical group, a "representive" compound is used.
 These representative compounds were selected because they tend to dominate production and emission of their group, and their volatility is representative of other compounds in the group as well.
 The temperature used for mass transfer model was the average for the contiguous US for 1991-2020, which is 11.8 degrees C.
-Code for model calculations are combined with description of assumptions in an "R Markdown" `emis_calcs.Rmd` in the `scripts` directory file, which is "compiled" to a pdf with text, original code, and output in `output/emis_calcs.pdf`.
 Calculated fractional losses (kg VOC volatilized per kg VOC produced or available) are given in `output/frac_loss.csv`.
 
-## 4.3. `03_EF_calcs`
-EFs are calculated here based on the fractional VOC losses described in Section 4.2 (by group), silage feeding rates specified in `scripts/set_consump.R`, and the production (concentration) data from `01_production` as described in Section 4.1.
+## 4.6. `05_EF_calcs`
+EFs are calculated here based on the fractional VOC losses described in Section 4.5 (by group), silage feeding rates calculated in `03_inputs/scripts/inputs.R`, and the production (concentration) data from `02_production` as described in Section 4.3.
+Silage production-based weighting was based on National Agricultural Statistics Service (NASS) results which show that corn silage makes up about 75% of the total, grass 15%, and legume silage 10%.
 
 Resulting EFs and related results are given in the file `output/EFs.csv`, including:
 * `emis.sil`: total VOC emission on a silage mass basis (mg VOC per kg silage DM = Gg VOC per Tg silage DM)
 * `EF.animal`: the EF on an animal basis (kg VOC per animal per year)
 
 More detailed emission estimates for individual compounds on a silage mass basis, including speciation estimates, are given in `emis.csv`, including:
-* `conc.wm`: production-weighted mean VOC concentration in silage (combined for corn, grass, and legume silage)
-* `floss.total`: fractional VOC loss for all stages
+* `conc.wm`: production-weighted mean VOC concentration in silage (combined for corn, grass, and legume silage) (mg VOC per kg silage DM)
+* `floss.total`: fractional VOC loss for all stages (kg VOC per kg VOC produced or available)
 * `emis.total`: VOC loss for all stages (mg VOC per kg silage DM)
 * `spec.pt`: speciation estimates as a percentage of total VOC emission (% VOC mass)
 
-Production-based weighting was based on National Agricultural Statistics Service (NASS) results which show that corn silage makes up about 75% of the total, grass 15%, and legume silage 10%.
+And the file `emis_tot.csv` has national emissions estimates by animal type and in total:
+* `emis`: VOC emissions (kg VOC / yr)
 
 # 5. Silage feeding rates
 In these calculations, dairy and beef cattle differ only in the rates of silage consumption (feeding).
