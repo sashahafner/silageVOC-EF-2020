@@ -80,7 +80,7 @@ k.sg.store <- 2E-5
 # Mass transfer model dispersion coefficient for feeding (feed lanes)
 # Units: m2/s
 # Source: Hafner et al. 2012, p 139
-k.sg.feed <- 2E-5
+k.sg.feed <- 3.3E-5
 
 # Mass transfer model gas-phase diffusivity
 # Units: m2/s
