@@ -74,27 +74,32 @@
 > # Effective feed exposure duration
 > # Units: sec
 > # Source: ????
-> t.out.feed <- 6 * 3600
+> t.out.feed <- 8 * 3600
 
-> # Mass transfer model convection coefficient
+> # Mass transfer model convection coefficient for feedout (storage)
 > # m/s
-> # Source: Hafner et al. 2012
-> h.m <- 0.01
+> # Source: Hafner et al. 2012, Fig. 1 (around 2 m/s wind)
+> h.m.store <- 0.02
+
+> # Mass transfer model convection coefficient for feeding (feed lanes)
+> # m/s
+> # Source: Hafner et al. 2012, Fig. 1 (around 1 m/s wind) and p 139
+> h.m.feed <- 0.01
 
 > # Mass transfer model dispersion coefficient for feedout (storage)
 > # Units: m2/s
-> # Source: Hafner et al. 2012, Fig. 1
+> # Source: Hafner et al. 2012, Fig. 1 (around 2 m/s wind) reduced based on p 139
 > k.sg.store <- 2E-5
 
 > # Mass transfer model dispersion coefficient for feeding (feed lanes)
 > # Units: m2/s
-> # Source: Hafner et al. 2012, p 139
-> k.sg.feed <- 3.3E-5
+> # Source: Hafner et al. 2012, Fig. 1 (around 1 m/s wind) reduced based on p 139
+> k.sg.feed <- 6E-5
 
 > # Mass transfer model gas-phase diffusivity
 > # Units: m2/s
-> # Source: ???
-> d.a <- c(`Acetic acid` = 1.2E-5, Acetaldehyde = 1.3E-5, `Propyl acetate` = 1.3E-5, Ethanol = 1.2E-5) 
+> # Source: EPA 2012
+> d.a <- c(`Acetic acid` = 1.2E-5, Acetaldehyde = 1.3E-5, `Propyl acetate` = 8.0-6, Ethanol = 1.4E-5) 
 
 > # Mass transfer model Henry's law constant parameters
 > # Units: mol/kg-atm

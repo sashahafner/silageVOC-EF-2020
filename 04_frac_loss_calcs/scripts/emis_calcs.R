@@ -11,7 +11,7 @@ floss <- data.frame(rep = c('Acetic acid', 'Acetaldehyde', 'Propyl acetate', 'Et
 
 # Storage (feedout) losses
 for (i in floss$rep) {
-  out <- facd.mod(c.d = 1, d.a = d.a[i], dm = dm, e.d = 100, h.m = h.m, k.h = k.h[i],
+  out <- facd.mod(c.d = 1, d.a = d.a[i], dm = dm, e.d = 100, h.m = h.m.store, k.h = k.h[i],
                   l = thk.store, k.sg = k.sg.store, temp.c = temp.c, t.outs = t.out.store, 
                   rho.d = rho.d.store)
   floss[floss$rep == i, 'store'] <- out$ts$f.lost
@@ -19,7 +19,7 @@ for (i in floss$rep) {
 
 # Feeding losses
 for (i in floss$rep) {
-  out <- facd.mod(c.d = 1, d.a = d.a[i], dm = dm, e.d = 100, h.m = h.m, k.h = k.h[i],
+  out <- facd.mod(c.d = 1, d.a = d.a[i], dm = dm, e.d = 100, h.m = h.m.feed, k.h = k.h[i],
                   l = thk.feed, k.sg = k.sg.feed, temp.c = temp.c, t.outs = t.out.feed, 
                   rho.d = rho.d.feed)
   floss[floss$rep == i, 'feed'] <- out$ts$f.lost
