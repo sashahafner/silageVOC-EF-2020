@@ -47,7 +47,7 @@ Files are organized into 3 subdirectories.
 This subdirectory contains scripts that define functions used in the calculations.
 The file `FACOnvDiffMod_v8.R` defines the model from Hafner et al. (2012).
 
-## 4.3. `02_production`
+## 4.2. `02_production`
 These files are for determination of VOC production in silage, based on silage VOC concentrations reported in published papers. 
 The data used here are based on Hafner et al. (2013), supplemented with measurements from haylage (grass silage) and legume silage.
 These literature data can be found in `data/Silage_VOC.xlsx`.
@@ -56,12 +56,12 @@ These calculations are carried out by running `scripts/main.R`.
 The output of the calculations is stored in the `output` directory.
 The file `compound_concs.csv` has the weighted mean (by number of silages in each study) concentration in the column `conc.mean` in mg VOC per kg silage DM.
 
-## 4.4. `03_inputs`
+## 4.3. `03_inputs`
 Inputs for calculations are set in `scripts/inputs.R`.
 These include silage production, cattle populations, silage properties, temperature, and mass transfer model parameters. 
 Some of these values are calculated in the script, and the file `log/log.txt` provides a record of all values.
 
-## 4.5. `04_frac_loss_calcs`
+## 4.4. `04_frac_loss_calcs`
 Here the mass transfer model from Hafner et al. (2012) is used to predict fractional loss of VOC (kg VOC lost per kg VOC produced or available) from silage storage and feeding.
 This model includes parameters for transport through silage and loss from an exposed surface, with parameter values based on wind tunnel (Montes et al., 2010; Hafner et al., 2010) and mass balance emission measurements made using silage representative of storage or feeding conditions (Hafner et al., 2012).
 Model parameters are set in `03_inputs`.
@@ -74,8 +74,8 @@ These representative compounds were selected because they tend to dominate produ
 The temperature used for mass transfer model was the average for the contiguous US for 1991-2020, which is 11.8 degrees C.
 Calculated fractional losses (kg VOC volatilized per kg VOC produced or available) are given in `output/frac_loss.csv`.
 
-## 4.6. `05_EF_calcs`
-EFs are calculated here based on the fractional VOC losses described in Section 4.5 (by group), silage feeding rates calculated in `03_inputs/scripts/inputs.R`, and the production (concentration) data from `02_production` as described in Section 4.3.
+## 4.5. `05_EF_calcs`
+EFs are calculated here based on the fractional VOC losses described in Section 4.4 (by group), silage feeding rates calculated in `03_inputs/scripts/inputs.R`, and the production (concentration) data from `02_production` as described in Section 4.2.
 Silage production-based weighting was based on National Agricultural Statistics Service (NASS) results which show that corn silage makes up about 75% of the total, grass 15%, and legume silage 10%.
 
 Resulting EFs and related results are given in the file `output/EFs.csv`, including:
