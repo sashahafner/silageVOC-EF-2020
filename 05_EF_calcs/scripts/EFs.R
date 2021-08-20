@@ -17,7 +17,9 @@ EFs$EF.animal.round <- round(EFs$EF.animal, 2)
 emis.tot <- ddply(EFs, 'animal.type', summarise, EF.animal = sum(EF.animal))
 pop <- data.frame(animal.type = c('Dairy', 'Beef'), pop = c(n.dairy, n.beef))
 emis.tot <- merge(emis.tot, pop, by = 'animal.type')
-emis.tot$emis <- emis.tot$EF.animal * emis.tot$pop
+emis.tot$emis.kg <- emis.tot$EF.animal * emis.tot$pop
+emis.tot$emis.Gg <- emis.tot$emis.kg / 1E6
 emis.tot <- rbind(emis.tot, 
                   data.frame(animal.type = 'Total', EF.animal = NA, 
-                             pop = sum(emis.tot$pop), emis = sum(emis.tot$emis)))
+                             pop = sum(emis.tot$pop), emis.kg = sum(emis.tot$emis.kg), 
+                             emis.Gg = sum(emis.tot$emis.kg)/1E6))

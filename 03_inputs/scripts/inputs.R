@@ -1,22 +1,22 @@
 # Silage production, weather, and other inputs for calculation of emission factors
 
-# US dairy cows in 2007
-# Source: NASS
-n.dairy <- 9.207E6
+# US dairy cows in 2017
+# Source: Abt (Jonathan Dorn, personal communication)
+n.dairy <- 18.651325E6
 
-# US beef cows in 2010
-# Source: NASS
-n.beef <- 31.767E6
+# US beef cows in 2017
+# Source: Abt (Jonathan Dorn, personal communication)
+n.beef <- 81.413215E6
 
 # Fraction of silage consumed by dairy
-# Source: Al Rotz, personal communication, based on simulations described in Rotz et al. (2019, 2021)
+# Source: Al Rotz, personal communication, based on simulations described in Rotz et al. 2019, 2021
 f.sil.dairy <- 0.75
 f.sil.beef <- 0.25
 
 # Silage production, fresh mass (FM) basis
 # Units: kg
 # Source: NASS
-prod.sil.FM <- 121E9
+prod.sil.FM <- 148.1E9
 
 # Fraction of silage produced that is corn, grass (haylage), or legume 
 # Source: NASS

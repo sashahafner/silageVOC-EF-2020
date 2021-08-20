@@ -92,16 +92,16 @@ And the file `emis_tot.csv` has national emissions estimates by animal type and 
 * `emis`: VOC emissions (kg VOC / yr)
 
 # 5. Silage feeding rates
-In these calculations, dairy and beef cattle differ only in the rates of silage consumption (feeding).
-These values were estimated from NASS statistics for total silage production and cattle populations.
-Total national silage production was for corn, haylage, alfalfa, and sorghum silage production, which is reported in tons, and was assumed to be in fresh mass units at 35% dry matter (DM).
-** Total silage production is 42 Tg DM per year. **
-Cattle populations are available as the number of dairy or beef cows, excluding bulls, steers, heifers, and calves. 
-Although these other animal groups consume silage, cow numbers are used for calculation of emissions in the NEI, and so these EFs should be based on them in order to predict total emissions.
-(**NTS: Confirm this with Abt/EPA. Also improve wording.**)
-To estimate silage feeding rates, we assumed all silage produced in the US is fed to dairy and beef cattle.
+Emission factors are fundamentally linked to silage production (see Section 2) but for EFs per-animal values are required.
+To ensure consistency between the two approaches, effective silage feeding rates are based on national silage production and the same cattle population statistics used for inventory calculations.
+These feeding rates are effective average rates, and apart from dairy and beef, there is no distinction between animal types.
+All silage produced in the US is assumed to be fed to dairy or beef cattle.
+Rates were estimated from NASS statistics for total silage production and estimated cattle populations from Abt for 2017.
+Total national silage production was for corn, haylage, alfalfa, and sorghum silage production, and is reported in tons.
+Reported mass was assumed to be in fresh mass, and dry mass was calculated by assuming a dry matter (DM) content of 34%.
+Total silage production for 2017 was 50 Tg DM per year.
 Based on the Integrated Farm System Model (IFSM) simulation results described in recent national assessments of dairy and beef cattle (Rotz et al., 2019, 2021), we assumed that dairy cattle consume 75% of US silage and beef 25% (C. Al Rotz, USDA-ARS, personal communication).
-Based on this approach, silage feeding rates were about 10 kg DM per d for dairy cows and 0.9 kg DM per d for beef cows.
+Based on this approach, effective average silage feeding rates were about 2025 kg DM per yr for dairy cows and 155 kg DM per yr for beef cows (5.5 and 0.4 kg DM per d, respectively).
 
 # References
 Hafner, S.D., Montes, F., Rotz, C.A., 2012. A mass transfer model for VOC emission from silage. Atmospheric Environment 54, 134–140. https://doi.org/10.1016/j.atmosenv.2012.03.005
