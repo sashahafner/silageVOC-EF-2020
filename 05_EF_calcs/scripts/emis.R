@@ -13,10 +13,5 @@ emis$emis.mix <- emis$floss.mix * (1 - emis$floss.store) *emis$conc.wmean
 emis$emis.feed <- emis$floss.feed * (1 - emis$floss.mix) * (1 - emis$floss.store) * emis$conc.wmean
 emis$emis.total <- emis$emis.store + emis$emis.mix + emis$emis.feed
 
-# Get total fractional loss for checking
-emis$floss.tot <- 1 - ((1 - emis$floss.store) * (1 - emis$floss.mix) * (1 - emis$floss.feed))
-
 # Calculate speciation 
 emis$spec.pt <- 100 * emis$emis.total / sum(emis$emis.total)
-
-

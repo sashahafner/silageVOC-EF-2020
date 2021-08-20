@@ -9,7 +9,10 @@ temp$temp.c <- (temp$Value - 32) * 5 / 9
 ntemp <- subset(temp, Date > 199012 & Date < 202101)
 
 # Check dim, should have 360 rows
-dim(ntemp)
+print(dim(ntemp))
 
 # Get average
 temp.c <- mean(ntemp$temp.c)
+temp.k <- temp.c + 273.15
+
+print(temp.c)

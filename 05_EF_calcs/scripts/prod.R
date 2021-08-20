@@ -13,6 +13,7 @@ for (i in c('corn', 'grass')) {
 }
 
 # Compound concentrations weighted by silage production from NASS
-concsw$wmean <- 0.75 * concsw$corn + 0.15 * concsw$grass + 0.10 * concsw$legume
+concsw$wmean <- f.corn * concsw$corn + f.grass * concsw$grass + f.legume * concsw$legume
+
 # Sort
 concsw <- concsw[order(concsw$group, -concsw$wmean), ]
