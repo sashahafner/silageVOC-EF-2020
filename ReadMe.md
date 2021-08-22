@@ -26,9 +26,16 @@ This approach does not capture differences due to local climate or management.
 Silage VOC production is based on the extensive compilation of VOC measurements presented in a review paper (Hafner et al., 2013).
 Fractional loss of VOC (2) is calculated by chemical group using the mass transfer model described by Hafner et al. (2012).
 The inputs for the mass transfer model are average values that are assumed to be constant for dairy and beef cattle for all US locations.
-VOC "speciation", the separation of calculated total VOC emission into specific organic compounds for use as inputs in air quality (atmospheric reaction-transport) models, is determined as the product of VOC production (1) and the total fraction VOC loss for all three stages (2).
+
+Emission factors and emission estimates are for all organic compounds that are volatile and known to be present in silage 
+VOC "speciation", the separation of calculated total VOC emission into specific organic compounds for use as inputs in air quality (atmospheric reaction-transport) models, is determined as the product of VOC production (1) and the total fractional VOC loss for all three stages, determined individually for each compound (2).
+As discussed in Hafner et al. (2013), the relative importance of individual compounds depends on their production as well as emission conditions.
 
 For more details on calculations, see Section 4.
+
+In all output files with compound-level results, compounds can be identified by name (e.g., "ethanol").
+Compounds names are generally the most commonly used, and in some cases differ from the names recommended by the International Union of Pure and Applied Chemistry (IUPAC). 
+Therefore a CAS Registry Number is included for each compounds as well (e.g., 64-17-5 for ethanol) (see https://www.cas.org/support/documentation/chemical-substances/faqs for more information).
 
 # 3. Software used
 All calculations are carried out using the R software environment, which can be downloaded for free (https://www.r-project.org/).
@@ -49,7 +56,10 @@ The file `FACOnvDiffMod_v8.R` defines the model from Hafner et al. (2012).
 
 ## 4.2. `02_production`
 These files are for determination of VOC production in silage, based on silage VOC concentrations reported in published papers. 
-The data used here are based on Hafner et al. (2013), supplemented with measurements from haylage (grass silage) and legume silage.
+The data used here are based on measurements of VOC within silage from the scientific literature, presented in a review paper (Hafner et al. 2013), supplemented with measurements from haylage (grass silage) and legume silage.
+Many more data are available for corn silage than the other types, both in terms of the number of silages and studies (e.g., > 800 silages from 27 studies for ethanol in corn silage vs. 31 silages from 2 studies for legume silage) and the number of compounds (32, 25, and 11 compounds for corn, grass, and legume, respectively).
+To deal with these omissions, corn silage (or in one case, grass silage) values were substituted.
+
 These literature data can be found in `data/Silage_VOC.xlsx`.
 Weighted mean concentrations (by numer of silages in each study) are calculated by crop type, following the approach described in Hafner et al. (2013, Section 2).
 These calculations are carried out by running `scripts/main.R`.
@@ -77,16 +87,22 @@ Calculated fractional losses (kg VOC volatilized per kg VOC produced or availabl
 ## 4.5. `05_EF_calcs`
 EFs are calculated here based on the fractional VOC losses described in Section 4.4 (by group), silage feeding rates calculated in `03_inputs/scripts/inputs.R`, and the production (concentration) data from `02_production` as described in Section 4.2.
 Silage production-based weighting was based on National Agricultural Statistics Service (NASS) results which show that corn silage makes up about 75% of the total, grass 15%, and legume silage 10%.
+Grass and legume silage (haylage) 
 
 Resulting EFs and related results are given in the file `output/EFs.csv`, including:
 * `emis.sil`: total VOC emission on a silage mass basis (mg VOC per kg silage DM = Gg VOC per Tg silage DM)
 * `EF.animal`: the EF on an animal basis (kg VOC per animal per year)
 
-More detailed emission estimates for individual compounds on a silage mass basis, including speciation estimates, are given in `emis.csv`, including:
+Speciation information can be found `output/speciation.csv`:
+* `cas`: CAS Registry Number
+* `spec.pt`: speciation estimates as a percentage of total VOC emission (% VOC mass)
+
+
+More detailed emission estimates for individual compounds on a silage mass basis are given in `emis.csv`, including:
+* `cas`: CAS Registry Number
 * `conc.wm`: production-weighted mean VOC concentration in silage (combined for corn, grass, and legume silage) (mg VOC per kg silage DM)
 * `floss.total`: fractional VOC loss for all stages (kg VOC per kg VOC produced or available)
 * `emis.total`: VOC loss for all stages (mg VOC per kg silage DM)
-* `spec.pt`: speciation estimates as a percentage of total VOC emission (% VOC mass)
 
 And the file `emis_tot.csv` has national emissions estimates by animal type and in total:
 * `emis`: VOC emissions (kg VOC / yr)
