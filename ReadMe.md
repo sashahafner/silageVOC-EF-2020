@@ -87,7 +87,7 @@ Calculated fractional losses (kg VOC volatilized per kg VOC produced or availabl
 ## 4.5. `05_EF_calcs`
 EFs are calculated here based on the fractional VOC losses described in Section 4.4 (by group), silage feeding rates calculated in `03_inputs/scripts/inputs.R`, and the production (concentration) data from `02_production` as described in Section 4.2.
 Silage production-based weighting was based on National Agricultural Statistics Service (NASS) results which show that corn silage makes up about 75% of the total, grass 15%, and legume silage 10%.
-Grass and legume silage (haylage) 
+These values are set in `03_inputs/scripts/inputs.R` (Section 4.3).
 
 Resulting EFs and related results are given in the file `output/EFs.csv`, including:
 * `emis.sil`: total VOC emission on a silage mass basis (mg VOC per kg silage DM = Gg VOC per Tg silage DM)
